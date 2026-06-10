@@ -22,30 +22,19 @@ macOS / Windows / Linux 上中文字体分别使用系统自带的 **Songti SC /
 ## 快速开始
 
 1. **克隆或下载本仓库**，在项目根目录打开终端。
-
 2. **填写基本信息**：
    - `_quarto.yml`：论文题目、作者、章节列表
    - `_thesis/frontmatter.yml`：专业、指导教师、毕业时间、中英文摘要与关键词
-
 3. **撰写正文**：编辑各章 `.qmd` 文件；参考文献条目写入 `references.bib`。
-
-4. **（可选）准备图片资源**：将校徽与页眉图放入 `assets/pic/`（见 [`assets/pic/README.md`](assets/pic/README.md)）。
-
 5. **编译 PDF**：
-
    ```bash
-   export BSTINPUTS="$(pwd)/_thesis/bst:$BSTINPUTS"
    quarto render --to pdf
    ```
-
    输出文件：`_book/thesis.pdf`。
-
 6. **浏览器预览（HTML）**：
-
    ```bash
    quarto preview
    ```
-
    默认在 <http://localhost:7440> 打开（端口见 `_quarto.yml`）。
 
 ## 项目结构
@@ -111,9 +100,6 @@ macOS / Windows / Linux 上中文字体分别使用系统自带的 **Songti SC /
 PDF 使用 `ctexbook` 文档类与 XeLaTeX；页眉页脚、行距、标题样式等由 `_thesis/latex/preamble.tex` 等文件控制，思路摘录自西北工大 `nwputhesis.cls`。
 
 ## 常见问题
-
-**编译找不到 `gbt7714-numerical.bst`**  
-确认已执行 `export BSTINPUTS="$(pwd)/_thesis/bst:$BSTINPUTS"`，且命令在项目根目录运行。
 
 **封面无校徽、页眉为纯文字**  
 将 `nwpulogo.png` 与 `nwpuheader.png` 放入 `assets/pic/`（规格见该目录 README）。
