@@ -26,4 +26,4 @@ quarto render --to pdf
 ## 路径约定
 
 - 摘要与封面字段：`_quarto.yml` → `metadata`
-- 黑体：可选将 `simhei.ttf` 放到 `_thesis/fonts/`；否则使用系统 `Heiti SC`（macOS）
+- 中文字体：按操作系统自动选用系统宋体/黑体（见 `_thesis/latex/fonts.tex`）

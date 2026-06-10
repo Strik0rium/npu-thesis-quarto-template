@@ -8,21 +8,10 @@
   BoldFont = Times New Roman Bold,
   ItalicFont = Times New Roman Italic,
 ]
-\IfFileExists{_thesis/fonts/simhei.ttf}{%
-  \setCJKmainfont{Songti SC}[
-    BoldFont = simhei.ttf,
-    BoldFeatures = { Path = _thesis/fonts/ },
-    ItalicFont = Songti SC Light,
-    BoldItalicFont = simhei.ttf,
-    BoldItalicFeatures = { Path = _thesis/fonts/ },
-    UprightFont = Songti SC Light,
-  ]%
-}{%
-  \setCJKmainfont{Songti SC}[
-    BoldFont = Heiti SC,
-    ItalicFont = Songti SC,
-    BoldItalicFont = Heiti SC,
-  ]%
+\InputIfFileExists{_thesis/latex/fonts.tex}{}{%
+  \InputIfFileExists{fonts.tex}{}{%
+    \PackageWarning{thesis}{fonts.tex not found; CJK fonts not configured.}%
+  }%
 }
 
 \usepackage{setspace}

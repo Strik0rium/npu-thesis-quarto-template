@@ -15,31 +15,18 @@
   headsep=7pt,
 }
 
-% 英文字体 + 中文宋黑（macOS：Songti SC / Heiti SC；Windows 可改为 SimSun / SimHei）
+% 英文字体 + 中文宋黑（各 OS 系统字体，见 fonts.tex）
 \setmainfont{Times New Roman}[
   BoldFont = Times New Roman Bold,
   ItalicFont = Times New Roman Italic,
 ]
 % 不指定 KaiTi，避免 Quarto/XeLaTeX 触发自动装字体包失败
 % 勿用 AutoFakeBold：fontspec 会对宋体做「错位描边」式伪粗，定义/定理标题里 \textbf 会发糊。
-% 粗体须映射到真实黑体；与章标题 \blackti 一致，优先仓库内 simhei.ttf。
-\IfFileExists{_thesis/fonts/simhei.ttf}{%
-  \setCJKmainfont{Songti SC}[
-    BoldFont = simhei.ttf,
-    BoldFeatures = { Path = _thesis/fonts/ },
-    ItalicFont = Songti SC Light,
-    BoldItalicFont = simhei.ttf,
-    BoldItalicFeatures = { Path = _thesis/fonts/ },
-    UprightFont = Songti SC Light,
-  ]%
-}{%
-  \setCJKmainfont{Songti SC}[
-    BoldFont = Heiti SC,
-    ItalicFont = Songti SC,
-    BoldItalicFont = Heiti SC,
-  ]%
+\InputIfFileExists{_thesis/latex/fonts.tex}{}{%
+  \InputIfFileExists{fonts.tex}{}{%
+    \PackageWarning{thesis}{fonts.tex not found; CJK fonts not configured.}%
+  }%
 }
-% \newCJKfontfamily{\blackti}{Heiti SC}[BoldFont = Heiti SC]
 \setmonofont{JetBrains Mono}
 
 \usepackage{setspace}
@@ -54,13 +41,6 @@
 
 % titlesec 须在 titletoc 之前；用其显式指定黑体，避免节标题落回宋体正文族
 \usepackage{titlesec}
-% 黑体：优先 _thesis/fonts/simhei.ttf（路径用 Path=，避免把「/」写进字体族名导致 fontspec 报错）
-\IfFileExists{_thesis/fonts/simhei.ttf}{%
-  \setCJKfamilyfont{thesisblack}[Path=_thesis/fonts/]{simhei.ttf}%
-  \newcommand{\blackti}{\CJKfamily{thesisblack}\selectfont}%
-}{%
-\newCJKfontfamily{\blackti}{Heiti SC}[BoldFont = Heiti SC]%
-}
 
 % ---------- 页眉页脚（摘录改写 nwputhesis.cls fancyhdr 段）----------
 \usepackage{graphicx}

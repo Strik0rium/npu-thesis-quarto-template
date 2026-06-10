@@ -1,0 +1,63 @@
+% 宋体/黑体：使用各操作系统自带字体，不 bundled 字体文件。
+% 检测顺序：macOS (Songti SC) → Windows (SimSun) → Linux (Noto CJK) → Source Han。
+%
+% 显式 Scale 可关闭 fontspec 对黑体的 MatchLowercase 自动缩小；\blackti 与 \textbf 共用。
+\newcommand{\thesisblackscale}{1.0}
+\IfFontExistsTF{Songti SC}{%
+  \setCJKmainfont{Songti SC}[
+    BoldFont = {Heiti SC Medium},
+    BoldFeatures = { Scale = \thesisblackscale },
+    ItalicFont = {Songti SC},
+    BoldItalicFont = {Heiti SC Medium},
+    BoldItalicFeatures = { Scale = \thesisblackscale },
+  ]%
+  \newCJKfontfamily{\blackti}{Heiti SC}[
+    UprightFont = {Heiti SC Medium},
+    BoldFont = {Heiti SC Medium},
+    Scale = \thesisblackscale,
+  ]%
+}{%
+  \IfFontExistsTF{SimSun}{%
+    \setCJKmainfont{SimSun}[
+      BoldFont = SimHei,
+      BoldFeatures = { Scale = \thesisblackscale },
+      ItalicFont = SimSun,
+      BoldItalicFont = SimHei,
+      BoldItalicFeatures = { Scale = \thesisblackscale },
+    ]%
+    \newCJKfontfamily{\blackti}{SimHei}[Scale = \thesisblackscale]%
+  }{%
+    \IfFontExistsTF{Noto Serif CJK SC}{%
+      \setCJKmainfont{Noto Serif CJK SC}[
+        BoldFont = {Noto Sans CJK SC Medium},
+        BoldFeatures = { Scale = \thesisblackscale },
+        ItalicFont = {Noto Serif CJK SC},
+        BoldItalicFont = {Noto Sans CJK SC Medium},
+        BoldItalicFeatures = { Scale = \thesisblackscale },
+      ]%
+      \newCJKfontfamily{\blackti}{Noto Sans CJK SC}[
+        UprightFont = {Noto Sans CJK SC Medium},
+        BoldFont = {Noto Sans CJK SC Bold},
+        Scale = \thesisblackscale,
+      ]%
+    }{%
+      \IfFontExistsTF{Source Han Serif SC}{%
+        \setCJKmainfont{Source Han Serif SC}[
+          BoldFont = {Source Han Sans SC Medium},
+          BoldFeatures = { Scale = \thesisblackscale },
+          ItalicFont = {Source Han Serif SC},
+          BoldItalicFont = {Source Han Sans SC Medium},
+          BoldItalicFeatures = { Scale = \thesisblackscale },
+        ]%
+        \newCJKfontfamily{\blackti}{Source Han Sans SC}[
+          UprightFont = {Source Han Sans SC Medium},
+          BoldFont = {Source Han Sans SC Bold},
+          Scale = \thesisblackscale,
+        ]%
+      }{%
+        \PackageWarning{thesis}{No suitable CJK fonts found; using \string\bfseries\space for titles.}%
+        \newcommand{\blackti}{\bfseries}%
+      }%
+    }%
+  }%
+}
