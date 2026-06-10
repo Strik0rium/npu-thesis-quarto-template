@@ -1,0 +1,177 @@
+% 摘录自 NWPU nwputhesis.cls 思路并改写：ctexbook + 按 chapter 编号
+% 行距：附件8 为 1.25；NWPU cls 为 ~1.354。默认用 1.25，可改 \setstretch 数值。
+% natbib 的 super/square/sort&compress 在 _quarto.yml 的 natbiboptions 中设置（须在 \usepackage{natbib} 之前生效）
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage{enumitem}
+
+\usepackage[a4paper]{geometry}
+\geometry{
+  left=31.8mm,
+  right=31.8mm,
+  top=25.4mm,
+  bottom=25.4mm,
+  headheight=27pt,
+  headsep=7pt,
+}
+
+% 英文字体 + 中文宋黑（macOS：Songti SC / Heiti SC；Windows 可改为 SimSun / SimHei）
+\setmainfont{Times New Roman}[
+  BoldFont = Times New Roman Bold,
+  ItalicFont = Times New Roman Italic,
+]
+% 不指定 KaiTi，避免 Quarto/XeLaTeX 触发自动装字体包失败
+% 勿用 AutoFakeBold：fontspec 会对宋体做「错位描边」式伪粗，定义/定理标题里 \textbf 会发糊。
+% 粗体须映射到真实黑体；与章标题 \blackti 一致，优先仓库内 simhei.ttf。
+\IfFileExists{_thesis/fonts/simhei.ttf}{%
+  \setCJKmainfont{Songti SC}[
+    BoldFont = simhei.ttf,
+    BoldFeatures = { Path = _thesis/fonts/ },
+    ItalicFont = Songti SC Light,
+    BoldItalicFont = simhei.ttf,
+    BoldItalicFeatures = { Path = _thesis/fonts/ },
+    UprightFont = Songti SC Light,
+  ]%
+}{%
+  \setCJKmainfont{Songti SC}[
+    BoldFont = Heiti SC,
+    ItalicFont = Songti SC,
+    BoldItalicFont = Heiti SC,
+  ]%
+}
+% \newCJKfontfamily{\blackti}{Heiti SC}[BoldFont = Heiti SC]
+\setmonofont{JetBrains Mono}
+
+\usepackage{setspace}
+% \setstretch{1.25}
+% NWPU 版行距可改为：
+\setstretch{1.3541667}
+% 段间距：与 Word「段前/段后间距为 0」一致——段间垂直距离仅由行距（\baselineskip）决定，
+% 不额外插入 \parskip；放在 \AtBeginDocument 以免被其它宏包在导言区改回。
+\AtBeginDocument{%
+  \setlength{\parskip}{0pt plus 0pt minus 0pt}%
+}
+
+% titlesec 须在 titletoc 之前；用其显式指定黑体，避免节标题落回宋体正文族
+\usepackage{titlesec}
+% 黑体：优先 _thesis/fonts/simhei.ttf（路径用 Path=，避免把「/」写进字体族名导致 fontspec 报错）
+\IfFileExists{_thesis/fonts/simhei.ttf}{%
+  \setCJKfamilyfont{thesisblack}[Path=_thesis/fonts/]{simhei.ttf}%
+  \newcommand{\blackti}{\CJKfamily{thesisblack}\selectfont}%
+}{%
+\newCJKfontfamily{\blackti}{Heiti SC}[BoldFont = Heiti SC]%
+}
+
+% ---------- 页眉页脚（摘录改写 nwputhesis.cls fancyhdr 段）----------
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+
+% Pandoc/Quarto 语法高亮：代码在 Shaded + Verbatim 内，会继承正文 \baselinestretch。
+% spacing 须包在 Shaded 外侧：包在内部会与 framed 分组冲突（Missing } at \end{Shaded}）。
+\BeforeBeginEnvironment{Shaded}{\begin{spacing}{1}}
+\AfterEndEnvironment{Shaded}{\end{spacing}}
+
+\setlength{\headheight}{27pt}
+\setlength{\headsep}{7pt}
+\renewcommand{\headrulewidth}{1pt}
+% 页眉条图：放在 assets/pic/nwpuheader.png（与封面 logo 同目录，便于管理）
+\newcommand{\thesisheadercenter}{%
+  \IfFileExists{assets/pic/nwpuheader.png}{%
+    \includegraphics[scale=0.15]{assets/pic/nwpuheader.png}%
+  }{%
+    {\small\blackti 本科毕业设计（论文）}%
+  }%
+}
+% 正文/摘要等：顶栏居中条 + 下划线；页脚居中页码（小五号）
+\fancypagestyle{thesis}{%
+  \fancyhf{}%
+  \fancyhead[C]{\thesisheadercenter}%
+  \fancyhead[L]{}\fancyhead[R]{}%
+  \fancyfoot[C]{\zihao{-5}\thepage}%
+}
+% 封面首类页面：无页眉页脚（若日后加封面可 \\thispagestyle{thesiscover}）
+\fancypagestyle{thesiscover}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+% ctexbook 在 \\frontmatter/\\mainmatter 常会改 \\pagestyle，此处再切回 thesis
+\apptocmd{\frontmatter}{\pagestyle{thesis}}{}{}
+\apptocmd{\mainmatter}{\pagestyle{thesis}}{}{}
+\AtBeginDocument{\pagestyle{thesis}}
+
+% 字号对齐 NWPU cls：章 ~16.06pt、节 ~14.05pt、小节 ~12.05pt；间距按附件「章/节前后留空」微调
+
+\titleformat{\chapter}{\centering\fontsize{16.0600pt}{1.25}\blackti\selectfont}{第\chinese{chapter}章}{1em}{}
+\titleformat{\section}{\fontsize{14.0525pt}{1.25}\blackti\selectfont}{\thesection}{1em}{}
+\titleformat{\subsection}{\fontsize{12.0450pt}{1.25}\blackti\selectfont}{\thesubsection}{1em}{}
+% book/ctexbook 章首页默认 \thispagestyle{plain}，无 fancy 页眉；改为 thesis
+\assignpagestyle{\chapter}{thesis}
+
+% \titleformat{\chapter}[hang]
+%   {\centering\blackti\fontsize{16.06pt}{24pt}\selectfont}
+%   {第\chinese{chapter}章\quad}{0pt}{}
+\titlespacing*{\chapter}{0pt}{2em}{1.25\baselineskip}
+
+% \titleformat{\section}[hang]
+%   {\blackti\fontsize{14.0525pt}{20pt}\selectfont\raggedright}
+%   {\thesection}{0.75em}{}
+\titlespacing*{\section}{0pt}{1.25\baselineskip}{0.65\baselineskip}
+
+% \titleformat{\subsection}[hang]
+%   {\blackti\fontsize{12.045pt}{18pt}\selectfont\raggedright}
+%   {\thesubsection}{0.75em}{}
+\titlespacing*{\subsection}{0pt}{0.75\baselineskip}{0.5\baselineskip}
+
+% 无编号 \chapter*（参考文献、致谢等）：版式与章一致，但不带「第×章」
+% \titleformat{name=\chapter,numberless}[hang]
+%   {\centering\blackti\fontsize{16.06pt}{24pt}\selectfont}
+%   {}{0pt}{}
+% \titlespacing*{name=\chapter,numberless}{0pt}{2\baselineskip}{1.25\baselineskip}
+
+\usepackage{titletoc}
+
+% 目录字号（对齐附件8 层级：章条偏醒目用四号黑体；1.1 / 1.1.1 用小四宋体，页码随条目字体）
+\titlecontents{chapter}[0pt]{%
+  \vspace{2mm}%
+  \blackti\fontsize{14.0525pt}{18pt}\selectfont
+}
+{\thecontentslabel\hskip.5em}{}{~\titlerule*[0.6pc]{$\cdot$}~\contentspage}
+\titlecontents{section}[20pt]{%
+  \normalfont\fontsize{12.045pt}{14.5pt}\selectfont
+}
+{\thecontentslabel\hskip.5em}{}{~\titlerule*[0.6pc]{$\cdot$}~\contentspage}
+\titlecontents{subsection}[30pt]{%
+  \normalfont\fontsize{12.045pt}{14.5pt}\selectfont
+}
+{\thecontentslabel\hskip.5em}{}{~\titlerule*[0.6pc]{$\cdot$}~\contentspage}
+
+\usepackage{chngcntr}
+\counterwithin{equation}{chapter}
+\numberwithin{equation}{chapter}
+\renewcommand\theequation{\arabic{chapter}-\arabic{equation}}
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+\renewcommand\thefigure{\arabic{chapter}-\arabic{figure}}
+\renewcommand\thetable{\arabic{chapter}-\arabic{table}}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{labelsep=space, justification=centering}
+\DeclareCaptionFont{wuhaohei}{\fontsize{10.5bp}{12.5pt}\blackti}
+\DeclareCaptionFont{wuhao}{\fontsize{10.5bp}{12.5pt}}
+\captionsetup[table]{font = {wuhaohei}}
+\captionsetup[figure]{font = {wuhao}}
+
+\usepackage{array}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{makecell}
+
+% 参考文献列表条目间距（参考 NWPU main.tex）
+\makeatletter
+\renewcommand\@biblabel[1]{[#1]\hfill}
+\makeatother

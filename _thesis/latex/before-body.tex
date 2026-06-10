@@ -1,0 +1,65 @@
+% 封面置于最前（摘录改写 nwputhesis.cls \\maketitle）；无页眉页脚
+\thispagestyle{thesiscover}
+\pagestyle{thesiscover}
+\null
+\vspace*{0pt}
+\begingroup
+\centering
+\setlength{\parskip}{0pt}
+\vspace{2.30cm}
+\IfFileExists{assets/pic/nwpulogo.png}{%
+  \includegraphics[width=10cm]{assets/pic/nwpulogo.png}%
+}{}%
+\par\vspace{1.30cm}
+{\fontsize{42.1575pt}{50pt}\bfseries\blackti\textbf{本科毕业设计（论文）}\par}
+\vspace{3.5cm}
+\fontsize{20pt}{\baselineskip}\selectfont
+{\fontsize{16.0600pt}{22pt}\selectfont\blackti 题目：\underline{$title$}\par}
+\vspace{1.5cm}
+{\fontsize{14.0525pt}{20pt}\selectfont 专业名称\underline{\raisebox{-0.12ex}{\makebox[0.55\textwidth][c]{$if(thesis_major)$$thesis_major$$else$\quad\quad\quad\quad\quad\quad$endif$}}}\par}
+\vspace{1.5cm}
+{\fontsize{14.0525pt}{20pt}\selectfont 学生姓名\underline{\raisebox{-0.12ex}{\makebox[0.55\textwidth][c]{%
+$if(authors)$$for(authors)$$it.name.literal$$sep$、$endfor$$else$$author$$endif$%
+}}}\par}
+\vspace{1.5cm}
+{\fontsize{14.0525pt}{20pt}\selectfont 指导教师\underline{\raisebox{-0.12ex}{\makebox[0.55\textwidth][c]{$if(thesis_advisor)$$thesis_advisor$$else$\quad\quad\quad\quad\quad\quad$endif$}}}\par}
+\vspace{1.5cm}
+{\fontsize{14.0525pt}{20pt}\selectfont 毕业时间\underline{\raisebox{-0.12ex}{\makebox[0.55\textwidth][c]{%
+$if(thesis_grad_year)$\mbox{\large $thesis_grad_year$\,}年\mbox{\large \,$thesis_grad_month$\,}月$else$$date$$endif$%
+}}}\par}
+\vspace{1.5cm}
+\par
+\endgroup
+\clearpage
+\thispagestyle{empty}
+
+% 摘要起：恢复页眉线宽并启用 thesis 样式；罗马页码由 \\frontmatter 负责
+\renewcommand{\headrulewidth}{1pt}
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+\pagestyle{thesis}
+
+$if(abstract_zh)$
+\vspace*{2em}
+\begin{center}
+{\blackti\fontsize{16.06pt}{20pt}\selectfont 摘\quad 要}
+\end{center}
+\vspace{\baselineskip}
+\quad\quad $abstract_zh$
+\par\vspace{\baselineskip}
+\noindent\textbf{\blackti 关键词：}$if(keywords_zh)$$keywords_zh$$endif$
+\newpage
+$endif$
+
+$if(abstract_en)$
+\vspace*{2em}
+\begin{center}
+\textbf{\fontsize{16.06pt}{20pt}\selectfont ABSTRACT}
+\end{center}
+\vspace{\baselineskip}
+\quad\quad $abstract_en$
+\par\vspace{\baselineskip}
+\noindent\textbf{KEY WORDS: }$if(keywords_en)$$keywords_en$$endif$
+\newpage
+$endif$

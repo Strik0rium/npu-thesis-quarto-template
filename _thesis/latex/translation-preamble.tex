@@ -1,0 +1,34 @@
+% 附件8 翻译材料：宋体小四，固定行距 25pt（无毕业论文页眉/页脚模板）
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+\setmainfont{Times New Roman}[
+  BoldFont = Times New Roman Bold,
+  ItalicFont = Times New Roman Italic,
+]
+\IfFileExists{_thesis/fonts/simhei.ttf}{%
+  \setCJKmainfont{Songti SC}[
+    BoldFont = simhei.ttf,
+    BoldFeatures = { Path = _thesis/fonts/ },
+    ItalicFont = Songti SC Light,
+    BoldItalicFont = simhei.ttf,
+    BoldItalicFeatures = { Path = _thesis/fonts/ },
+    UprightFont = Songti SC Light,
+  ]%
+}{%
+  \setCJKmainfont{Songti SC}[
+    BoldFont = Heiti SC,
+    ItalicFont = Songti SC,
+    BoldItalicFont = Heiti SC,
+  ]%
+}
+
+\usepackage{setspace}
+\AtBeginDocument{%
+  \setstretch{1}%
+  \fontsize{12.045pt}{25pt}\selectfont
+  \setlength{\parskip}{0pt plus 0pt minus 0pt}%
+  \pagestyle{plain}%
+}
