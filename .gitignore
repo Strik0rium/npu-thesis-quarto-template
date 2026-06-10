@@ -5,3 +5,4 @@
 **/*.quarto_ipynb
 
 /.quarto/
+_thesis/fonts/
