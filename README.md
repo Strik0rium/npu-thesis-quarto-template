@@ -21,21 +21,11 @@ macOS / Windows / Linux 上中文字体分别使用系统自带的 **Songti SC /
 
 ## 快速开始
 
-1. **克隆或下载本仓库**，在项目根目录打开终端。
-2. **填写基本信息**：
-   - `_quarto.yml`：论文题目、作者、章节列表
-   - `_thesis/frontmatter.yml`：专业、指导教师、毕业时间、中英文摘要与关键词
-3. **撰写正文**：编辑各章 `.qmd` 文件；参考文献条目写入 `references.bib`。
-5. **编译 PDF**：
-   ```bash
-   quarto render --to pdf
-   ```
-   输出文件：`_book/thesis.pdf`。
-6. **浏览器预览（HTML）**：
-   ```bash
-   quarto preview
-   ```
-   默认在 <http://localhost:7440> 打开（端口见 `_quarto.yml`）。
+在项目根目录中运行如下命令：
+
+```
+quarto use template Strik0rium/npu-thesis-quarto-template
+```
 
 ## 项目结构
 
