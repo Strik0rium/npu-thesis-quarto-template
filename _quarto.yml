@@ -1,0 +1,59 @@
+project:
+  type: book
+  output-dir: _book
+  preview:
+    port: 7440
+
+lang: zh-Hans
+
+book:
+  title: "THESIS_TITLE"
+  author: "AUTHOR_NAME"
+  date: today
+  output-file: thesis
+  chapters:
+    # Quarto 项目必须要有 index.qmd 文
+    - index.qmd
+    - virtual-auditory.qmd
+    - references.qmd
+    - acknowledgements.qmd
+    - closing.qmd
+
+metadata-files:
+  # 在该文件中编辑导师、专业相关信息以及撰写摘要和关键词
+  - _thesis/frontmatter.yml
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  pdf:
+    pdf-engine: xelatex
+    documentclass: ctexbook
+    classoption:
+      - UTF8
+      - zihao=-4
+      - a4paper
+      - openany
+      - fontset=none
+    papersize: a4
+    cite-method: natbib
+    # 须在此传入：include-in-header 在 natbib 之后，preamble 里 PassOptions 过晚无效
+    # 不用 sort&compress：Pandoc 会把 & 写成 \&，导致 natbib 报错；sort,compress 与 sort&compress 等效
+    natbiboptions: "super,square,comma,sort,compress"
+    biblio-style: gbt7714-numerical
+    suppress-bibliography: true
+    toc: true
+    toc-depth: 3
+    toc-title: "目　录"
+    number-sections: true
+    include-in-header:
+      - _thesis/latex/preamble.tex
+    template-partials:
+      - _thesis/latex/before-body.tex
+      - _thesis/latex/toc.tex
+    keep-tex: false
+
