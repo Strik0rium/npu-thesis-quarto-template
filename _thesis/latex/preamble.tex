@@ -39,7 +39,7 @@
   \setlength{\parskip}{0pt plus 0pt minus 0pt}%
 }
 
-% titlesec 须在 titletoc 之前；用其显式指定黑体，避免节标题落回宋体正文族
+% titlesec 须在 titletoc 之前；标题用 \bfseries 走 BoldFont（系统黑体）
 \usepackage{titlesec}
 
 % ---------- 页眉页脚（摘录改写 nwputhesis.cls fancyhdr 段）----------
@@ -60,7 +60,7 @@
   \IfFileExists{assets/pic/nwpuheader.png}{%
     \includegraphics[scale=0.15]{assets/pic/nwpuheader.png}%
   }{%
-    {\small\blackti 本科毕业设计（论文）}%
+    {\small\bfseries 本科毕业设计（论文）}%
   }%
 }
 % 正文/摘要等：顶栏居中条 + 下划线；页脚居中页码（小五号）
@@ -82,30 +82,30 @@
 
 % 字号对齐 NWPU cls：章 ~16.06pt、节 ~14.05pt、小节 ~12.05pt；间距按附件「章/节前后留空」微调
 
-\titleformat{\chapter}{\centering\fontsize{16.0600pt}{1.25}\blackti\selectfont}{第\chinese{chapter}章}{1em}{}
-\titleformat{\section}{\fontsize{14.0525pt}{1.25}\blackti\selectfont}{\thesection}{1em}{}
-\titleformat{\subsection}{\fontsize{12.0450pt}{1.25}\blackti\selectfont}{\thesubsection}{1em}{}
+\titleformat{\chapter}{\centering\fontsize{16.0600pt}{1.25}\bfseries\selectfont}{第\chinese{chapter}章}{1em}{}
+\titleformat{\section}{\fontsize{14.0525pt}{1.25}\bfseries\selectfont}{\thesection}{1em}{}
+\titleformat{\subsection}{\fontsize{12.0450pt}{1.25}\bfseries\selectfont}{\thesubsection}{1em}{}
 % book/ctexbook 章首页默认 \thispagestyle{plain}，无 fancy 页眉；改为 thesis
 \assignpagestyle{\chapter}{thesis}
 
 % \titleformat{\chapter}[hang]
-%   {\centering\blackti\fontsize{16.06pt}{24pt}\selectfont}
+%   {\centering\bfseries\fontsize{16.06pt}{24pt}\selectfont}
 %   {第\chinese{chapter}章\quad}{0pt}{}
 \titlespacing*{\chapter}{0pt}{2em}{1.25\baselineskip}
 
 % \titleformat{\section}[hang]
-%   {\blackti\fontsize{14.0525pt}{20pt}\selectfont\raggedright}
+%   {\bfseries\fontsize{14.0525pt}{20pt}\selectfont\raggedright}
 %   {\thesection}{0.75em}{}
 \titlespacing*{\section}{0pt}{1.25\baselineskip}{0.65\baselineskip}
 
 % \titleformat{\subsection}[hang]
-%   {\blackti\fontsize{12.045pt}{18pt}\selectfont\raggedright}
+%   {\bfseries\fontsize{12.045pt}{18pt}\selectfont\raggedright}
 %   {\thesubsection}{0.75em}{}
 \titlespacing*{\subsection}{0pt}{0.75\baselineskip}{0.5\baselineskip}
 
 % 无编号 \chapter*（参考文献、致谢等）：版式与章一致，但不带「第×章」
 % \titleformat{name=\chapter,numberless}[hang]
-%   {\centering\blackti\fontsize{16.06pt}{24pt}\selectfont}
+%   {\centering\bfseries\fontsize{16.06pt}{24pt}\selectfont}
 %   {}{0pt}{}
 % \titlespacing*{name=\chapter,numberless}{0pt}{2\baselineskip}{1.25\baselineskip}
 
@@ -114,7 +114,7 @@
 % 目录字号（对齐附件8 层级：章条偏醒目用四号黑体；1.1 / 1.1.1 用小四宋体，页码随条目字体）
 \titlecontents{chapter}[0pt]{%
   \vspace{2mm}%
-  \blackti\fontsize{14.0525pt}{18pt}\selectfont
+  \bfseries\fontsize{14.0525pt}{18pt}\selectfont
 }
 {\thecontentslabel\hskip.5em}{}{~\titlerule*[0.6pc]{$\cdot$}~\contentspage}
 \titlecontents{section}[20pt]{%
@@ -138,7 +138,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \captionsetup{labelsep=space, justification=centering}
-\DeclareCaptionFont{wuhaohei}{\fontsize{10.5bp}{12.5pt}\blackti}
+\DeclareCaptionFont{wuhaohei}{\fontsize{10.5bp}{12.5pt}\bfseries}
 \DeclareCaptionFont{wuhao}{\fontsize{10.5bp}{12.5pt}}
 \captionsetup[table]{font = {wuhaohei}}
 \captionsetup[figure]{font = {wuhao}}

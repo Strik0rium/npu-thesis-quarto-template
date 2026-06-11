@@ -7,7 +7,7 @@
 | `latex/preamble.tex` | 导言：版式、页眉页脚、`titlesec`/`titletoc`、`natbib` 等 |
 | `latex/before-body.tex` | Pandoc partial：封面 + 双摘要 |
 | `latex/toc.tex` | 目录 partial |
-| `latex/fonts.tex` | 按 OS 选用系统宋体/黑体（macOS / Windows / Linux） |
+| `latex/fonts.tex` | 按 OS 设置宋体 + BoldFont 黑体（`\textbf` / `\bfseries`） |
 | `bst/gbt7714-numerical.bst` | GB/T 7714 数字顺序制 BibTeX 样式 |
 | `reference/` | 西北工大 LaTeX 模板参考（`main.tex`、`nwputhesis.cls`），**不参与 Quarto 编译** |
 

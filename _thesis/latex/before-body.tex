@@ -11,10 +11,10 @@
   \includegraphics[width=10cm]{assets/pic/nwpulogo.png}%
 }{}%
 \par\vspace{1.30cm}
-{\fontsize{42.1575pt}{50pt}\blackti 本科毕业设计（论文）\par}
+{\fontsize{42.1575pt}{50pt}\bfseries 本科毕业设计（论文）\par}
 \vspace{3.5cm}
 \fontsize{20pt}{\baselineskip}\selectfont
-{\fontsize{16.0600pt}{22pt}\selectfont\blackti 题目：\underline{$title$}\par}
+{\fontsize{16.0600pt}{22pt}\selectfont\textbf{题目：}\underline{$title$}\par}
 \vspace{1.5cm}
 {\fontsize{14.0525pt}{20pt}\selectfont 专业名称\underline{\raisebox{-0.12ex}{\makebox[0.55\textwidth][c]{$if(thesis_major)$$thesis_major$$else$\quad\quad\quad\quad\quad\quad$endif$}}}\par}
 \vspace{1.5cm}
@@ -43,12 +43,12 @@ $endif$
 $if(abstract_zh)$
 \vspace*{2em}
 \begin{center}
-{\blackti\fontsize{16.06pt}{20pt}\selectfont 摘\quad 要}
+{\bfseries\fontsize{16.06pt}{20pt}\selectfont 摘\quad 要}
 \end{center}
 \vspace{\baselineskip}
 \quad\quad $abstract_zh$
 \par\vspace{\baselineskip}
-\noindent{\blackti 关键词：}$if(keywords_zh)$$keywords_zh$$endif$
+\noindent\textbf{关键词：}$if(keywords_zh)$$keywords_zh$$endif$
 \newpage
 $endif$
 
