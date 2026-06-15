@@ -83,8 +83,8 @@
 % 字号对齐 NWPU cls：章 ~16.06pt、节 ~14.05pt、小节 ~12.05pt；间距按附件「章/节前后留空」微调
 
 \titleformat{\chapter}{\centering\fontsize{16.0600pt}{1.25}\bfseries\selectfont}{第\chinese{chapter}章}{1em}{}
-\titleformat{\section}{\fontsize{14.0525pt}{1.25}\bfseries\selectfont}{\thesection}{1em}{}
-\titleformat{\subsection}{\fontsize{12.0450pt}{1.25}\bfseries\selectfont}{\thesubsection}{1em}{}
+\titleformat{\section}{\fontsize{14.0525pt}{1.25}\bfseries\selectfont}{\normalfont\thesection}{1em}{}
+\titleformat{\subsection}{\fontsize{12.0450pt}{1.25}\bfseries\selectfont}{\normalfont\thesubsection}{1em}{}
 % book/ctexbook 章首页默认 \thispagestyle{plain}，无 fancy 页眉；改为 thesis
 \assignpagestyle{\chapter}{thesis}
 
