@@ -51,6 +51,34 @@ quarto use template Strik0rium/npu-thesis-quarto-template
 
 版式与 LaTeX 基础设施说明见 [`_thesis/README.md`](_thesis/README.md)。
 
+### 章节如何组织
+
+本模板采用 Quarto **Book** 项目：`_quarto.yml` 中的 `book.chapters` 列表决定各 `.qmd` 文件的**合并顺序**；每个 `.qmd` 对应 PDF 中的一章（或附录/后置部分）。`index.qmd` 是 Quarto 项目的必填入口，通常作为第一章「绪论」。
+
+```mermaid
+flowchart TB
+    yml["_quarto.yml<br/>书籍总配置"]
+
+    yml --> meta["book.title / book.author<br/>输出格式（PDF / HTML）"]
+    yml --> list["book.chapters<br/>章节文件列表（顺序即成书顺序）"]
+
+    list --> index["index.qmd<br/>第一章 · 绪论<br/><i>必填</i>"]
+    list --> body["your-topic.qmd<br/>正文章节<br/><i>按需新建</i>"]
+    list --> refs["references.qmd<br/>参考文献"]
+    list --> ack["acknowledgements.qmd<br/>致谢"]
+    list --> close["closing.qmd<br/>毕业设计小结"]
+
+    fm["_thesis/frontmatter.yml"] -.->|"metadata-files<br/>封面 / 摘要"| yml
+    bib["references.bib"] -.->|"bibliography<br/>文献库"| yml
+
+    index & body & refs & ack & close --> render["quarto render"]
+    yml --> render
+    render --> pdf["_book/thesis.pdf"]
+    render --> html["_book/ HTML 预览"]
+```
+
+新增正文章节时：在项目根目录创建 `chapter-name.qmd`，再将其文件名追加到 `_quarto.yml` 的 `book.chapters` 中（一般放在 `references.qmd` 之前）。详见下方「[新增章节](#新增章节)」。
+
 ## 常用配置
 
 ### 修改论文元数据
