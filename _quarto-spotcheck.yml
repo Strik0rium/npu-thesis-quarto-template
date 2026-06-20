@@ -1,0 +1,11 @@
+# 抽检模式：覆盖封面等人名 metadata，不修改源文件中的真实信息。
+# 使用：quarto render --profile spotcheck --to pdf
+project:
+  output-dir: _book-spotcheck
+
+metadata:
+  spotcheck: true
+  thesis_advisor: "**"
+
+book:
+  author: "**"

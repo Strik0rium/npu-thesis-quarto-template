@@ -32,6 +32,7 @@ quarto use template Strik0rium/npu-thesis-quarto-template
 ```
 .
 ├── _quarto.yml              # 书籍配置：标题、作者、章节、PDF/HTML 选项
+├── _quarto-spotcheck.yml    # 抽检 profile：脱敏封面人名 metadata
 ├── _thesis/
 │   ├── frontmatter.yml      # 封面字段与中英文摘要
 │   ├── latex/               # LaTeX 导言、封面、目录 partial
@@ -66,6 +67,16 @@ quarto use template Strik0rium/npu-thesis-quarto-template
 | `abstract_zh` / `keywords_zh` | 中文摘要与关键词 |
 | `abstract_en` / `keywords_en` | 英文摘要与关键词 |
 
+### 抽检模式
+
+提交抽检材料时，可用 `spotcheck` profile 将封面上的学生姓名、指导教师替换为 `**`，无需改动 `_quarto.yml` 或 `_thesis/frontmatter.yml` 中的真实信息。
+
+```bash
+quarto render --profile spotcheck --to pdf
+```
+
+输出为 `_book-spotcheck/thesis.pdf`，与正式版 `_book/thesis.pdf` 分开存放。覆盖字段见 [`_quarto-spotcheck.yml`](_quarto-spotcheck.yml)：`book.author`、`thesis_advisor`。
+
 ### 引用文献
 
 使用 Pandoc 引用语法，例如 `[@knuth84]` 或 `@knuth84`。参考文献样式为 GB/T 7714 数字顺序制（`gbt7714-numerical`），编译 PDF 前须设置 `BSTINPUTS` 指向 `_thesis/bst/`。
@@ -84,6 +95,7 @@ quarto use template Strik0rium/npu-thesis-quarto-template
 | 命令 | 输出 |
 |------|------|
 | `quarto render --to pdf` | `_book/thesis.pdf`（正式提交用） |
+| `quarto render --profile spotcheck --to pdf` | `_book-spotcheck/thesis.pdf`（抽检用，封面人名脱敏） |
 | `quarto render --to html` | `_book/` 下 HTML 电子书 |
 | `quarto preview` | 本地热重载预览 |
 
